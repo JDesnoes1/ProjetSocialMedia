@@ -6,7 +6,7 @@ const Register = () => {
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>Jerem Social.</h1>
+          <h1>Eni Share.</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
             alias dolores quis laborum accusamus quibusdam nihil nostrum eum
