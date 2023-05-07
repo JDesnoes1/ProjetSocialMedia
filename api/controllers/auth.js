@@ -25,7 +25,7 @@ export const register = (req, res) => {
     ];
     db.query(q, [values], (err, data) => {
       if (err) return res.status(500).json(err);
-      return res.status(200).json("User has been created");
+      return res.status(200).json("L'utilisateur a bien été crée");
     });
   });
 };
@@ -61,4 +61,12 @@ export const login = (req, res) => {
   });
 };
 
-export const logout = (req, res) => {};
+export const logout = (req, res) => {
+  res
+    .clearCookie("accessToken", {
+      secure: true,
+      sameSite: "none",
+    })
+    .status(200)
+    .json("L'utilisateur a été déconnecté avec succès.");
+};
