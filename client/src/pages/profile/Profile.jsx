@@ -34,9 +34,25 @@ const Profile = () => {
       })
   );
 
-  console.log(relationshipData);
+  const queryClient = useQueryClient();
 
-  const handleFollow = () => {};
+  const mutation = useMutation(
+    (following) => {
+      if (following)
+        return makeRequest.delete("/relationships?userId=" + userId);
+      return makeRequest.post("/relationships", { userId });
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries("relationship");
+      },
+    }
+  );
+
+  const handleFollow = () => {
+    mutation.mutate(relationshipData.includes(currentUser.id));
+  };
 
   return (
     <div className="profile">
@@ -96,7 +112,7 @@ const Profile = () => {
                 <MoreVertIcon />
               </div>
             </div>
-            <Posts />
+            <Posts userId={userId} />
           </div>
         </>
       )}
